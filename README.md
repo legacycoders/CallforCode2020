@@ -18,7 +18,7 @@
 
 
  ### Demo
- [Demo Link] (www.youtube.com)
+ [Demo Link] (https://www.youtube.com/watch?v=t8Jef4Uz6Sk)
  
  ### Solution 
  
@@ -31,6 +31,8 @@
   ##### 1. Watson IoT Platform   
       - The platform helps reading the location, real time soil moisture data from the soil sensors.
         Detailed documentation is available under Watson IoT Platform folder.
+        
+
   
   ##### 2. Node-RED Platform  
       - 
