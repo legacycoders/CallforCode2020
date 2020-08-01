@@ -24,29 +24,32 @@
  
  ![solutionArchitecture](https://user-images.githubusercontent.com/68838940/89094853-09b69980-d38e-11ea-8384-ef4f6623384b.png)
 
-
 #### Solution Components
   Following are the components that are built for this solution.
   
   ##### 1. IBM Watson IoT Platform   
       - The platform helps reading the location, real time soil moisture data from the soil sensors.
-        Detailed documentation is available under Watson IoT Platform folder.
+        Detailed documentation is available under **CallforCode2020/WatsonIot/IBM Watson IoT Platform service.docx**
         
   ##### 2. IBM Watson Studio with ML
         - This platform uses SoilMoisture dataset which comprises of locaiton, air temp, surface temp, percipitation, humidity and soil moisture to train the model and predicts the soil moisture using Extra Tree Regressor algorithm. Model is deployed in the cloud and exposed as API. With the help of scoring end point the soil mositure prediction can access from any application.
-          Detailed documentation is available in IBMWatsonStudio/IBM Watson Studio.docx
+          Detailed documentation is available in CallforCode2020/IBMWatsonStudio/IBM Watson Studio.docx
           
   ##### 3. Open Weather Map API
           - Third party API which provides the forcast for next 48 hours for the give location.
        
   ##### 4. Node-RED Platform  
       - It is our integration platform which connects Iot Platform, ML model, IBM DB2, IBM Push notification and Mobile app.
-          Detailed documentation is available in NodeRed/Node RED Application.docx
-          Code availabe in NodeRed/flows.json          
+          Detailed documentation is available in CallforCode2020/NodeRed/Node RED Application.docx
+          Code availabe in CallforCode2020/NodeRed/flows.json          
       
+  ##### 5. IBM DB2 on cloud
+       - This is our RDMS database to hold Soil moisture levels for current & next 48 hours and crop data and its intended level of soil moisture.
+         Detaild documentation is available in BM Cloud DB2/IBM DB2 on Cloud .docx
+         
   ##### 5. Dashboard 
       - IBM embeded Cognos reporting dashboard for visualization
-          IBMWatsonStudio/CognosDashboard/
+          CallforCode2020/IBMWatsonStudio/CognosDashboard/
   
   ##### 6. Mobile App
        - A user friendly mobile app which will be used by farmer which have the various dashboards, push notification enabled. Farmer can trigger the pump actuator from mobile app or he    subscribe to automated pump actuator based on the threshold level.
