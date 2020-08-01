@@ -28,6 +28,11 @@
 #### Solution Components
   Following are the components that are built for this solution.
   
-  ##### 1. Watson IoT Platform  - 
+  ##### 1. Watson IoT Platform   
       - The platform helps reading the location, real time soil moisture data from the soil sensors.
-        Detailed description is available in the link [IBM Watson IoT Platform]()
+        Detailed documentation is available under Watson IoT Platform folder.
+  
+  ##### 2. Node-RED Platform  
+      - 
+  
+        
