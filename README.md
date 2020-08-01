@@ -22,4 +22,9 @@
  
  ### Solution 
  
- ![myimage-alt-tag](C:\Users\vkumar\Desktop\call4code\solutionArchitecture.png)
+ ![solutionArchitecture](https://user-images.githubusercontent.com/68838940/89094773-374f1300-d38d-11ea-8705-aa4dbf5b9001.png)
+
+#### Solution Components
+  Following are the components that are built for this solution.
+  
+  ##### 1. Watson IoT Platform
