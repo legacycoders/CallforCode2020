@@ -44,8 +44,21 @@
           Detailed documentation is available in NodeRed/Node RED Application.docx
           Code availabe in NodeRed/flows.json          
       
-  ##### 5. Dashboard and Mobile app
+  ##### 5. Dashboard 
       - IBM embeded Cognos reporting dashboard for visualization
           IBMWatsonStudio/CognosDashboard/
   
+  ##### 6. Mobile App
+       - A user friendly mobile app which will be used by farmer which have the various dashboards, push notification enabled. Farmer can trigger the pump actuator from mobile app or he    subscribe to automated pump actuator based on the threshold level.
+       
+  ##### 7. Drip Irrigation pump actuator   
+       - IoT based hardware device to actuate the wate pump from the inputs received from IoT platform (trigger manually by farmer or automated)
         
+
+
+#### Roadmap
+     1. Push notification to send notifications to mobile devices
+     2. To build a mobile app with necessary dashboards and necessary control options for pump actuator. Feedback system to agency about the behavrioal pattern
+     3. IoT based pump acutator.
+     
+ 
