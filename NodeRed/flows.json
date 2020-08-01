@@ -1,0 +1,720 @@
+[
+    {
+        "id": "1fde38c6.3b48b7",
+        "type": "tab",
+        "label": "Soil Moisture",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7b060e27.c6873",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Format",
+        "func": "var payloadcount = msg.payload.length;\nvar prop_val_array = [];\n\nfor (var i=0; i<payloadcount; i++) {\nvar property_names = Object.keys(msg.payload[i].new_payload);\nvar property_values = Object.values(msg.payload[i].new_payload);\nprop_val_array.push(property_values);\n}\n\nvar entries = {};\nentries[\"\"] = property_names;\nentries[\"values\"] = prop_val_array;\n\nvar input_data_array = [];\ninput_data_array.push(entries);\n\nvar input_data = new Map([[\"input_data\",input_data_array]]);\n\nmsg.payload = Object.fromEntries(input_data);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 860,
+        "wires": [
+            [
+                "54f4511.fd62fb"
+            ]
+        ]
+    },
+    {
+        "id": "103bbba4.bfa734",
+        "type": "json",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 670,
+        "y": 440,
+        "wires": [
+            [
+                "b1544b77.75dc28",
+                "cbcc136f.6103"
+            ]
+        ]
+    },
+    {
+        "id": "54f4511.fd62fb",
+        "type": "json",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 570,
+        "y": 860,
+        "wires": [
+            [
+                "19ad75ed.9a80ca"
+            ]
+        ]
+    },
+    {
+        "id": "19ad75ed.9a80ca",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "setHeaders",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['Accept'] = 'application/json';\nmsg.headers['Authorization'] = 'Bearer eyJraWQiOiIyMDIwMDcyNDE4MzEiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC01MFdWV1BOUDBRIiwiaWQiOiJJQk1pZC01MFdWV1BOUDBRIiwicmVhbG1pZCI6IklCTWlkIiwiaWRlbnRpZmllciI6IjUwV1ZXUE5QMFEiLCJnaXZlbl9uYW1lIjoiU3VuZGFyIiwiZmFtaWx5X25hbWUiOiJKZXlhcmFqIiwibmFtZSI6IlN1bmRhciBKZXlhcmFqIiwiZW1haWwiOiJzcmFqYW44N0BnbWFpbC5jb20iLCJzdWIiOiJzcmFqYW44N0BnbWFpbC5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiIwY2U5MDYzODQzMjA0ZmVjOTFkNmMyNmIyOGRlYmQ3YSIsImZyb3plbiI6dHJ1ZX0sImlhdCI6MTU5NjI1NDM2MywiZXhwIjoxNTk2MjU3OTYzLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiYngiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.fusDuO7DFOmqGEB3vs2OhSDVNltjf5AMZF4mNAF5APsSvpiwl3J2vBkASlpoOvIMaz_Y3-WVUzNRj2pXti34s2BbjAJCuUfKCZQmjlNRJM9uXBXCv9tiNQj-ikwrsQevbftY4cLFRT_MWEXWPX5r-TITAet2A8PQ-pxzpyShmcCjV8FCIgDDg2kEqMu5VkdNVefFwY64Hzb5ILZu3EfJ5CNgS7WZC7Az5Gpk4Q0qXyQqiDGEhKokwR1TObRqQzrvc75lygZqKXf2vlJn-U_Pey7tBXCCP4Gwr98NI09u5vhTAkAcDpUF5Sv9J9YS99pCVflV76_wvieXJxO2A_5Qlw';\nmsg.headers['ML-Instance-ID'] = 'f632b6ae-6602-4e8c-b226-28470718e3f3';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 730,
+        "y": 860,
+        "wires": [
+            [
+                "4132d6de.2c7238"
+            ]
+        ]
+    },
+    {
+        "id": "4132d6de.2c7238",
+        "type": "http request",
+        "z": "1fde38c6.3b48b7",
+        "name": "predictSoilMoisture",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://us-south.ml.cloud.ibm.com/v4/deployments/3fd280fc-921a-4738-a155-82b4d143f73d/predictions",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 470,
+        "y": 960,
+        "wires": [
+            [
+                "401dc47.bedcd3c",
+                "8ca8387b.d0ba98"
+            ]
+        ]
+    },
+    {
+        "id": "401dc47.bedcd3c",
+        "type": "json",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 650,
+        "y": 960,
+        "wires": [
+            [
+                "af80b031.45ee6"
+            ]
+        ]
+    },
+    {
+        "id": "7da87d25.d397c4",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "IoT Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "cbcc136f.6103",
+        "type": "http request",
+        "z": "1fde38c6.3b48b7",
+        "name": "getWeatherForecast",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.openweathermap.org/data/2.5/onecall?lat={{{lat}}}&lon={{{lon}}}&exclude=minutely,daily&units=metric&appid={{{apikey}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 900,
+        "y": 440,
+        "wires": [
+            [
+                "1e54862.935997a"
+            ]
+        ]
+    },
+    {
+        "id": "1e54862.935997a",
+        "type": "json",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1090,
+        "y": 440,
+        "wires": [
+            [
+                "53708cfb.27b794"
+            ]
+        ]
+    },
+    {
+        "id": "c8e12cb.5e7bfd",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "merge data",
+        "func": "var new_msg = {};\nvar payload_array = [];\n\nnew_msg.device_id = msg.device_id;\nnew_msg.location_nm = msg.location_nm;\nnew_msg.msg_tstamp = msg.msg_tstamp;\nnew_msg.lat = msg.lat;\nnew_msg.lon = msg.lon;\nnew_msg.soil_moisture = msg.soil_moisture;\n\nvar hourcount = msg.payload.forecast.hourly.length;\n\nfor (var i=0; i<hourcount; i++) {\n    var new_payload = {};\n    \n    //new_payload[\"soil_temperature\"] = msg.payload.IoT.soil_temperature;\n    new_payload[\"air_temperature\"] = msg.payload.forecast.hourly[i].temp;\n\n    if (msg.payload.forecast.hourly[i].hasOwnProperty(\"rain\")) {\n        new_payload[\"precipitation_amount\"] = msg.payload.forecast.hourly[i].rain[\"1h\"];\n    }  else {\n        new_payload[\"precipitation_amount\"] = 0;\n    }\n    //new_payload[\"air_temperature\"] = msg.payload.forecast.hourly[i].temp;\n    new_payload[\"humidity\"] = msg.payload.forecast.hourly[i].humidity;    \n    \n    payload_array.push({new_payload});\n    \n}\n\nnew_msg[\"payload\"] = payload_array;\n\nreturn new_msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 450,
+        "y": 760,
+        "wires": [
+            [
+                "7b060e27.c6873",
+                "19b386fb.cad3c9"
+            ]
+        ]
+    },
+    {
+        "id": "b4a153e0.e4dfd",
+        "type": "join",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "c8e12cb.5e7bfd"
+            ]
+        ]
+    },
+    {
+        "id": "b1544b77.75dc28",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "IoT Data",
+        "func": "msg.topic = \"IoT\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 640,
+        "wires": [
+            [
+                "b4a153e0.e4dfd"
+            ]
+        ]
+    },
+    {
+        "id": "53708cfb.27b794",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Weather forecast Data",
+        "func": "msg.topic = \"forecast\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 760,
+        "y": 560,
+        "wires": [
+            [
+                "b4a153e0.e4dfd"
+            ]
+        ]
+    },
+    {
+        "id": "c08a1cd6.f4d1c",
+        "type": "join",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1030,
+        "y": 860,
+        "wires": [
+            [
+                "4881f252.400a8c"
+            ]
+        ]
+    },
+    {
+        "id": "19b386fb.cad3c9",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Actual",
+        "func": "msg.topic = \"actual\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 790,
+        "y": 760,
+        "wires": [
+            [
+                "c08a1cd6.f4d1c"
+            ]
+        ]
+    },
+    {
+        "id": "af80b031.45ee6",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Prediction",
+        "func": "msg.topic = \"prediction\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 780,
+        "y": 960,
+        "wires": [
+            [
+                "c08a1cd6.f4d1c"
+            ]
+        ]
+    },
+    {
+        "id": "f860f450.2e7ce8",
+        "type": "change",
+        "z": "1fde38c6.3b48b7",
+        "name": "SetMsgProp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "msg_tstamp",
+                "pt": "msg",
+                "to": "$now()",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "device_id",
+                "pt": "msg",
+                "to": "payload.device_id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "lat",
+                "pt": "msg",
+                "to": "payload.lat",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "lon",
+                "pt": "msg",
+                "to": "payload.lon",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "apikey",
+                "pt": "msg",
+                "to": "b56a2fa08902b1ea11479c2301a02635",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "soil_moisture",
+                "pt": "msg",
+                "to": "payload.soil_moisture",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "location_nm",
+                "pt": "msg",
+                "to": "payload.location_nm",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 440,
+        "wires": [
+            [
+                "103bbba4.bfa734"
+            ]
+        ]
+    },
+    {
+        "id": "8ca8387b.d0ba98",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "4881f252.400a8c",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "merge data",
+        "func": "var new_msg = {};\nvar payload_array = [];\n\nvar ONE_HOUR = 60 * 60 * 1000; /* ms */\n\n\nnew_msg.msg_tstamp = msg.msg_tstamp;\n\nvar inputcount = msg.payload.actual.length;\n\nfor (var i=0; i<inputcount; i++) {\n    var forecast = {};\n\n    forecast[\"MSG_ID\"] = msg._msgid.toString();\n    forecast[\"MSG_TSTAMP\"] = msg.msg_tstamp;\n    forecast[\"DEVICE_ID\"] = msg.device_id;\n    forecast[\"LOCATION_NM\"] = msg.location_nm;\n    forecast[\"LATITUDE\"] = +(msg.lat.toFixed(2));\n    forecast[\"LONGITUDE\"] = +(msg.lon.toFixed(2));\n    \n    if(i === 0) {\n        forecast[\"RECORD_TYPE\"] = \"actual\";\n    } else {\n        forecast[\"RECORD_TYPE\"] = \"prediction\";\n    }\n    \n    //forecast[\"log_tstamp\"] = msg.msg_tstamp;\n    var time_stamp = new Date(new Date(msg.msg_tstamp).getTime() + (i * ONE_HOUR));\n    forecast[\"LOG_TSTAMP\"] = time_stamp.toISOString();\n    \n    forecast[\"AIR_TEMPERATURE\"] = +(msg.payload.actual[i].new_payload.air_temperature.toFixed(2));\n    forecast[\"PRECIPITATION_AMOUNT\"] = +(msg.payload.actual[i].new_payload.precipitation_amount.toFixed(2));\n    forecast[\"HUMIDITY\"] = +(msg.payload.actual[i].new_payload.humidity.toFixed(2));\n    forecast[\"SOIL_MOISTURE\"] = +(msg.payload.prediction.predictions[\"0\"].values[i][\"0\"].toFixed(2));\n\n    payload_array.push(forecast);\n    \n}\n\nnew_msg[\"payload\"] = payload_array;\n\nreturn new_msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 730,
+        "y": 1080,
+        "wires": [
+            [
+                "88e7928b.72d8",
+                "f0250831.ba3608",
+                "388bf62d.b39a9a",
+                "1b1faeb0.7f19e1"
+            ]
+        ]
+    },
+    {
+        "id": "88e7928b.72d8",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "f0250831.ba3608",
+        "type": "dashDB out",
+        "z": "1fde38c6.3b48b7",
+        "dashDB": "10e480bf.334f0f",
+        "service": "_ext_",
+        "table": "SOIL_MOISTURE_LOG",
+        "name": "",
+        "x": 1090,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "96b55b6b.d56f78",
+        "type": "dashDB in",
+        "z": "1fde38c6.3b48b7",
+        "dashDB": "10e480bf.334f0f",
+        "service": "Db2-hq",
+        "query": "",
+        "params": "",
+        "name": "GetCropData",
+        "x": 650,
+        "y": 1260,
+        "wires": [
+            [
+                "13730846.b9edd8",
+                "ecf4dc9e.abfe5"
+            ]
+        ]
+    },
+    {
+        "id": "13730846.b9edd8",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "d1ccd388.e018f",
+        "type": "ibmiot in",
+        "z": "1fde38c6.3b48b7",
+        "authentication": "boundService",
+        "apiKey": "b0466906.a7f9d8",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "f860f450.2e7ce8",
+                "7da87d25.d397c4"
+            ]
+        ]
+    },
+    {
+        "id": "388bf62d.b39a9a",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Build SQL",
+        "func": "var msg_date = msg.msg_tstamp.toString().substr(0,10);\nvar query = \"SELECT MIN_SOIL_MOISTURE, MAX_SOIL_MOISTURE FROM RFC61298.CROP_DATA WHERE LATITUDE = \" + 27.15 + \" AND LONGITUDE = \" + -81.37 + \" AND DATE('\" + msg_date + \"') BETWEEN START_DATE AND END_DATE\";\nmsg.payload = query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 1260,
+        "wires": [
+            [
+                "96b55b6b.d56f78"
+            ]
+        ]
+    },
+    {
+        "id": "9690554.2b515a8",
+        "type": "switch",
+        "z": "1fde38c6.3b48b7",
+        "name": "Trigger",
+        "property": "payload.alert",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "yes",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 1380,
+        "wires": [
+            [
+                "c5f4dbdf.c6c818"
+            ]
+        ]
+    },
+    {
+        "id": "235b95e1.97574a",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "c5f4dbdf.c6c818",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Alert Message",
+        "func": "\nmsg.payload.alert_msg = \"Alert!! On \" + msg.payload.date +\" at \" + msg.payload.time + \", Soil Moisture is predicted to be \" + msg.payload.soil_moisture_predict + \", at \" + msg.payload.location_nm + \", Latitude: \" + msg.payload.latitude + \", Longitude: \" + msg.payload.longitude + \", which is below crop's minimum threshold of \" + msg.payload.min_soil_moisture;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 1380,
+        "wires": [
+            [
+                "235b95e1.97574a"
+            ]
+        ]
+    },
+    {
+        "id": "9d4e7c0a.da0a2",
+        "type": "join",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1030,
+        "y": 1260,
+        "wires": [
+            [
+                "c5fe7cdc.86562",
+                "8f0384cb.7bc828"
+            ]
+        ]
+    },
+    {
+        "id": "1b1faeb0.7f19e1",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Prediction",
+        "func": "msg.topic = \"prediction\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 940,
+        "y": 1140,
+        "wires": [
+            [
+                "9d4e7c0a.da0a2"
+            ]
+        ]
+    },
+    {
+        "id": "ecf4dc9e.abfe5",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Crop Threshold",
+        "func": "msg.topic = \"crop\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 840,
+        "y": 1260,
+        "wires": [
+            [
+                "9d4e7c0a.da0a2"
+            ]
+        ]
+    },
+    {
+        "id": "8f0384cb.7bc828",
+        "type": "function",
+        "z": "1fde38c6.3b48b7",
+        "name": "Monitor Soil Moisture Level",
+        "func": "var new_msg = {};\nvar new_payload = {};\n\nnew_msg.msg_tstamp = msg.msg_tstamp;\n\n\nvar hourcount = msg.payload.prediction.length;\n\nfor (var i=0; i<hourcount; i++) {\n    if (msg.payload.prediction[i].SOIL_MOISTURE < msg.payload.crop.MIN_SOIL_MOISTURE) {\n\t\tnew_payload.alert = \"yes\";\n\t\tnew_payload.location_nm = msg.payload.prediction[i].LOCATION_NM;\n\t\tnew_payload.latitude = msg.payload.prediction[i].LATITUDE;\n\t\tnew_payload.longitude = msg.payload.prediction[i].LONGITUDE;\n\t\tnew_payload.date = msg.payload.prediction[i].LOG_TSTAMP.substring(0,10);\n\t\tnew_payload.time = msg.payload.prediction[i].LOG_TSTAMP.substring(11,20);\n\t\tnew_payload.soil_moisture_predict = msg.payload.prediction[i].SOIL_MOISTURE;\n\t\tnew_payload.min_soil_moisture = msg.payload.crop.MIN_SOIL_MOISTURE;\n\t\tbreak;\n\t}\n    \n}\n\nnew_msg[\"payload\"] = new_payload;\n\nreturn new_msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 500,
+        "y": 1380,
+        "wires": [
+            [
+                "9690554.2b515a8"
+            ]
+        ]
+    },
+    {
+        "id": "c5fe7cdc.86562",
+        "type": "debug",
+        "z": "1fde38c6.3b48b7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "10e480bf.334f0f",
+        "type": "dashDB",
+        "z": "",
+        "hostname": "dashdb-txn-sbox-yp-dal09-10.services.dal.bluemix.net",
+        "db": "BLUDB",
+        "port": "50000",
+        "name": ""
+    },
+    {
+        "id": "b0466906.a7f9d8",
+        "type": "ibmiot",
+        "z": "",
+        "name": "",
+        "keepalive": "60",
+        "serverName": "z2e9nv.internetofthings.ibmcloud.com",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    }
+]
