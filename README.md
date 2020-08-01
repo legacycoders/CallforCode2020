@@ -28,13 +28,24 @@
 #### Solution Components
   Following are the components that are built for this solution.
   
-  ##### 1. Watson IoT Platform   
+  ##### 1. IBM Watson IoT Platform   
       - The platform helps reading the location, real time soil moisture data from the soil sensors.
         Detailed documentation is available under Watson IoT Platform folder.
         
-
-  
-  ##### 2. Node-RED Platform  
-      - 
+  ##### 2. IBM Watson Studio with ML
+        - This platform uses SoilMoisture dataset which comprises of locaiton, air temp, surface temp, percipitation, humidity and soil moisture to train the model and predicts the soil moisture using Extra Tree Regressor algorithm. Model is deployed in the cloud and exposed as API. With the help of scoring end point the soil mositure prediction can access from any application.
+          Detailed documentation is available in IBMWatsonStudio/IBM Watson Studio.docx
+          
+  ##### 3. Open Weather Map API
+          - Third party API which provides the forcast for next 48 hours for the give location.
+       
+  ##### 4. Node-RED Platform  
+      - It is our integration platform which connects Iot Platform, ML model, IBM DB2, IBM Push notification and Mobile app.
+          Detailed documentation is available in NodeRed/Node RED Application.docx
+          Code availabe in NodeRed/flows.json          
+      
+  ##### 5. Dashboard and Mobile app
+      - IBM embeded Cognos reporting dashboard for visualization
+          IBMWatsonStudio/CognosDashboard/
   
         
