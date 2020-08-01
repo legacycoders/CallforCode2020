@@ -22,9 +22,12 @@
  
  ### Solution 
  
- ![solutionArchitecture](https://user-images.githubusercontent.com/68838940/89094773-374f1300-d38d-11ea-8705-aa4dbf5b9001.png)
+ ![solutionArchitecture](https://user-images.githubusercontent.com/68838940/89094853-09b69980-d38e-11ea-8384-ef4f6623384b.png)
+
 
 #### Solution Components
   Following are the components that are built for this solution.
   
-  ##### 1. Watson IoT Platform
+  ##### 1. Watson IoT Platform  - 
+      - The platform helps reading the location, real time soil moisture data from the soil sensors.
+        Detailed description is available in the link [IBM Watson IoT Platform]()
